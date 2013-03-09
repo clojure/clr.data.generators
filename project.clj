@@ -1,6 +1,6 @@
-(defproject org.clojars.dmiller2718/cljclr.tools.nrepl "0.1.0"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject org.clojars.dmiller2718/cljclr.data.generators "0.1.0"
+  :description "Port of clojure.org/data.generators to ClojureCLR"
+  :url "https://github.com/dmiller/cljclr.data.generators"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies []
