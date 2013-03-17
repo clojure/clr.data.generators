@@ -15,11 +15,8 @@ Leiningen/Clojars reference:
    [org.clojure.clr/data.generators "0.1.0"]
    
    
-## Notes on the ported code ##
-
-
 # Copyright and License #
-========================================
+
 
 Original ClojureJVM code:
 
