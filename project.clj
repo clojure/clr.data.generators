@@ -1,6 +1,6 @@
-(defproject org.clojars.dmiller2718/cljclr.data.generators "0.1.0"
+(defproject org.clojure.clr/data.generators "0.1.0"
   :description "Port of clojure.org/data.generators to ClojureCLR"
-  :url "https://github.com/dmiller/cljclr.data.generators"
+  :url "https://github.com/clojure/clr.data.generators"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies []
