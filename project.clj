@@ -1,4 +1,4 @@
-(defproject org.clojure.clr/data.generators "0.1.0"
+(defproject org.clojure.clr/data.generators "0.1.1"
   :description "Port of clojure.org/data.generators to ClojureCLR"
   :url "https://github.com/clojure/clr.data.generators"
   :license {:name "Eclipse Public License"
@@ -25,4 +25,5 @@
                          ; [:unzip "../clj" :clj-zip]
                          ]
         :main-cmd      [:clj-exe "Clojure.Main.exe"]
-        :compile-cmd   [:clj-exe "Clojure.Compile.exe"]})
+        :compile-cmd   [:clj-exe "Clojure.Compile.exe"]})9My2F00m
+		

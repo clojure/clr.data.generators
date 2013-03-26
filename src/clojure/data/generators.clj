@@ -10,8 +10,10 @@
 (ns ^{:author "Stuart Halloway, modified for ClojureCLR by David Miller"
       :doc "Data generators for Clojure."}
   clojure.data.generators
-  (:refer-clojure :exclude [byte char long int short float double boolean string symbol keyword list vec set hash-map name rand-nth byte-array boolean-array short-array char-array int-array long-array float-array double-array shuffle  ulong uint ushort sbyte])
+  (:refer-clojure :exclude [byte char long int short float double boolean string symbol keyword list vec set hash-map name rand-nth byte-array boolean-array short-array char-array int-array long-array float-array double-array shuffle bigint bigdec ulong uint ushort sbyte ulong-array uint-array ushort-array sbyte-array])
   (:require [clojure.core :as core]))
+
+(set! *warn-on-reflection* true)
 
 (def ^:dynamic ^System.Random                                                  ;;; ^java.util.Random
      *rnd*
@@ -91,6 +93,12 @@ instance you can get a repeatable basis for tests."
   "Returns a long based on *rnd*. Same as uniform."
   uniform)
 
+(defn ratio
+  "Generate a ratio, with numerator and denominator uniform longs
+   or as specified"
+  ([] (ratio long long))
+  ([num-gen denom-gen] (/ (num-gen) (denom-gen))))
+
 (defn int
   []
   "Returns a long based on *rnd* in the int range."
@@ -110,7 +118,7 @@ instance you can get a repeatable basis for tests."
   "Returns a bool based on *rnd*."
   []
   (zero? (.Next *rnd* 0 2)))                                      ;;; (.nextBoolean *rnd*))
-
+(declare uint ushort sbyte ulong)
 (defn printable-ascii-char
   "Returns a char based on *rnd* in the printable ascii range."
   []
@@ -152,7 +160,7 @@ instance you can get a repeatable basis for tests."
   [types]
   `(do ~@(map (fn [type] `(primitive-array ~type)) types)))
 
-(primitive-arrays ["byte" "short" "long" "char" "double" "float" "int" "boolean"])
+(primitive-arrays ["byte" "short" "long" "char" "double" "float" "int" "boolean" "uint" "ushort" "sbyte" "ulong"])
 
 #_(defn byte-array
       ([f]
@@ -162,6 +170,19 @@ instance you can get a repeatable basis for tests."
            (dotimes [i (count arr)]
              (aset arr i (core/byte (call-through f))))
            arr)))
+
+;; TODO: sensible default distributions for bigint, bigdec
+(defn bigint
+  ^clojure.lang.BigInt []
+  (loop []
+    (let [i (try
+              (BigInteger. (core/int (uniform -1 1)) ^uints (uint-array uint))       ;;;  (BigInteger. ^bytes (byte-array byte))
+             (catch ArgumentException e :retry))]                               ;;; NumberFormatException
+      (if (= i :retry) (recur) (core/bigint i)))))
+
+(defn bigdec
+  []
+  (BigDecimal. (.toBigInteger (bigint)) (geometric 0.01)))
 
 (defn vec
   "Create a vec with elements from f and sized from sizer."
@@ -219,16 +240,26 @@ instance you can get a repeatable basis for tests."
           (name-body sizer))))
 
 (defn symbol
-  "Create a symbol sized from sizer."
-  ([] (core/symbol (name)))
-  ([sizer]
-     (core/symbol (name sizer))))
+  "Create a non-namepsaced symbol sized from sizer."
+  ([] (symbol default-sizer))
+  ([sizer] (core/symbol (name sizer))))
 
 (defn keyword
-  "Create a keyword sized from sizer."
-  ([] (core/keyword (name)))
-  ([sizer]
-     (core/keyword (name sizer))))
+  "Create a non-namespaced keyword sized from sizer."
+  ([] (keyword default-sizer))
+  ([sizer] (core/keyword (name sizer))))
+
+(defn uuid
+  "Create a UUID based on uniform distribution of low and high parts."
+  []
+  (System.Guid. (core/int (int)) (core/short (short)) (core/short (short)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte))))   ;;;    (java.util.UUID. (long) (long)))
+(declare unix-millis-to-datetime datetime-to-unix-millis)
+(defn date
+  "Create a date with geoemetric mean around base. Defaults to
+   #inst \"2007-10-16T00:00:00.000-00:00\""
+  ([] (date #inst "2007-10-16T00:00:00.000-00:00"))
+  ([^System.DateTime base]                                                            ;;; ^java.util.Date
+     (unix-millis-to-datetime (geometric (/ 1 (datetime-to-unix-millis base))))))      ;;;  java.util.Date.  .getTime
 
 (def scalars
   [(constantly nil)
@@ -238,7 +269,12 @@ instance you can get a repeatable basis for tests."
    printable-ascii-char
    string
    symbol
-   keyword])
+   keyword
+   uuid
+   date
+   ratio
+   bigint
+   bigdec])
 
 (defn scalar
   "Returns a scalar based on *rnd*."
@@ -337,3 +373,11 @@ instance you can get a repeatable basis for tests."
 
   
   
+(def ^{:private true} unix-epoch (DateTime. 1970, 1, 1, 0, 0, 0, DateTimeKind/Utc))
+
+(defn- unix-millis-to-datetime [ms]
+  (.AddMilliseconds ^DateTime unix-epoch (core/double ms)))
+ 
+
+(defn- datetime-to-unix-millis [^DateTime dt]
+  (.TotalMilliseconds (.Subtract dt ^DateTime unix-epoch)))
