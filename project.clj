@@ -25,5 +25,5 @@
                          ; [:unzip "../clj" :clj-zip]
                          ]
         :main-cmd      [:clj-exe "Clojure.Main.exe"]
-        :compile-cmd   [:clj-exe "Clojure.Compile.exe"]})9My2F00m
+        :compile-cmd   [:clj-exe "Clojure.Compile.exe"]})
 		
