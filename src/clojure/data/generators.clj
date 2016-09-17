@@ -43,14 +43,14 @@ instance you can get a repeatable basis for tests."
                               (Math/Log (- 1.0 p))))))                           ;;; Math/Log
 (declare next-long)                                                              ;;; added
 (defn uniform
-  "Uniform distribution from lo (inclusive) to high (exclusive).
+  "Uniform distribution from lo (inclusive) to hi (exclusive).
    Defaults to range of Java long."
   (^long [] (next-long *rnd*))                                                           ;;; .nextLong
   (^long[lo hi] {:pre [(< lo hi)]}
          (clojure.core/long (Math/Floor (+ lo (* (.NextDouble *rnd*) (- hi lo)))))))     ;;; Math/floor .nextDouble
 
 (defn float
-  "Generate af float between 0 and 1 based on *rnd*"
+  "Generate a float between 0 and 1 based on *rnd*"
   ^double []
    (core/float (.NextDouble *rnd*)))                                        ;;; (.nextFloat *rnd*))
 
@@ -206,7 +206,7 @@ instance you can get a repeatable basis for tests."
                    (reps sizer fv)))))
 
 (defn string
-  "Create a string with chars from v and sized from sizer."
+  "Create a string with chars from f and sized from sizer."
   ([] (string printable-ascii-char))
   ([f] (string f default-sizer))
   ([f sizer] (apply str (reps sizer f))))
@@ -255,7 +255,7 @@ instance you can get a repeatable basis for tests."
   (System.Guid. (core/int (int)) (core/short (short)) (core/short (short)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte)) (core/byte (byte))))   ;;;    (java.util.UUID. (long) (long)))
 (declare unix-millis-to-datetime datetime-to-unix-millis)
 (defn date
-  "Create a date with geoemetric mean around base. Defaults to
+  "Create a date with geometric mean around base. Defaults to
    #inst \"2007-10-16T00:00:00.000-00:00\""
   ([] (date #inst "2007-10-16T00:00:00.000-00:00"))
   ([^System.DateTime base]                                                            ;;; ^java.util.Date
