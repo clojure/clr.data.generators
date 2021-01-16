@@ -1,4 +1,4 @@
-(defproject org.clojure.clr/data.generators "1.0.0"
+(defproject org.clojure.clr/data.generators "1.0.1.1"
   :description "Port of clojure.org/data.generators to ClojureCLR"
   :url "https://github.com/clojure/clr.data.generators"
   :license {:name "Eclipse Public License"

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <OutputType>Library</OutputType>
     <RootNamespace>clojure</RootNamespace>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -10,9 +10,9 @@
     <Product>clojure.data.generators</Product>
     <AssemblyTitle>clojure.data.generators</AssemblyTitle>
     <Description>Generators for random Clojure data</Description>
-    <Copyright>Copyright © Rich Hickey, David Miller 2020</Copyright>
+    <Copyright>Copyright © Rich Hickey, David Miller 2021</Copyright>
     <Company>ClojureCLR contributors</Company>
-    <Version>1.0.1.0</Version>
+    <Version>1.0.1.1</Version>
   </PropertyGroup>  
   <ItemGroup>
     <EmbeddedResource Include="data\generators.clj" />

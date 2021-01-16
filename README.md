@@ -12,7 +12,7 @@ Nuget reference:
 
 Leiningen/Clojars reference:
 
-   [org.clojure.clr/data.generators "1.0.0"]
+   [org.clojure.clr/data.generators "1.0.1.1"]
    
    
 # Copyright and License #
