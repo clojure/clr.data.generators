@@ -6,19 +6,19 @@ A port of [clojure/data.generators](https://github.com/clojure/data.generators) 
 
 # Releases
 
-Latest stable release: x.x.x
+Latest stable release: 1.1.0
 
 [clj](https://clojure.org/guides/getting_started) dependency information:
 ```clojure
-io.github.clojure/clr.data.generators {:git/tag "vx.x.x" :git/sha "xxxxxx"}
+io.github.clojure/clr.data.generators {:git/tag "v1.1.0" :git/sha "d25d292"}
 
 Nuget reference:
 
-    PM> Install-Package clojure.data.generators
+    PM> Install-Package clojure.data.generators -Version=1.1.0
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-   [org.clojure.clr/data.generators "1.0.1.1"]
+   [org.clojure.clr/data.generators "1.1.0"]
    
    
 # Copyright and License #
