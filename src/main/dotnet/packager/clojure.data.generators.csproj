@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>clojure.data.generators</PackageId>
+		<RootNamespace>clojure.data</RootNamespace>
+		<Title>clojure.data.generators</Title>
+		<Product>clojure.data.generators</Product>
+		<AssemblyTitle>clojure.data.generators</AssemblyTitle>
+		<Authors>Clojure CLR contributors</Authors>
+		<Description>A por of data.generators to ClojureCLR</Description>
+		<Copyright>Copyright © Rich Hickey, ClojureCLR contributors 2024</Copyright>
+		<PackageLicenseExpression>EPL-1.0</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/clojure/clr.tools.namesapce</RepositoryUrl>
+		<Company>ClojureCLR contributors</Company>
+		<PackageTags>Clojure;ClojureCLR</PackageTags>
+		<Version>1.1.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource CopyToOutputDirectory="Never" Include ="..\..\clojure\clojure\data\**\*"/>
+	</ItemGroup>
+
+</Project>
