@@ -11,15 +11,19 @@ Latest stable release: 1.1.0
 [clj](https://clojure.org/guides/getting_started) dependency information:
 ```clojure
 io.github.clojure/clr.data.generators {:git/tag "v1.1.0" :git/sha "d25d292"}
+```
 
 Nuget reference:
 
+```
     PM> Install-Package clojure.data.generators -Version=1.1.0
+```
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
+```
    [org.clojure.clr/data.generators "1.1.0"]
-   
+``` 
    
 # Copyright and License #
 
